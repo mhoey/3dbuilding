@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Building JavaScript</title>
+  <style type="text/css">
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="display:flex;flex-direction: row;justify-content: space-between; padding:16px">
+    <h1 style="color:rgb(69, 69, 69); ">3D Building (Simple animation)</h1>
+    <select>
+      <option value="index.html">Test 01 - Load model</option>
+      <option value="ex1.html">Test 02 - Change Object Color</option>
+      <option value="ex2.html" selected="true">Test 03 - Animate Object Color</option>
+      <option value="ex3.html">Test 04 - Simulation Overlays</option>
+    </select>
+  </div>
+  <script type="module" src="./ex2.js"></script>
+  <script>
+    document.querySelector("select").addEventListener("change", (e) => {
+      window.location.href = e.target.value;
+    });
+  </script>
+</body>
+
+</html>

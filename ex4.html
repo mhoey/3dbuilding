@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>3D Building JavaScript</title>
+  <style type="text/css">
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin: 0;
+    }
+    table {
+        width:400px;
+        border: solid 1px gray;
+        border-collapse: collapse;
+    }
+    td {
+        border: solid 1px gray;
+        text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="display:flex;flex-direction: row;justify-content: space-between; padding:16px">
+    <h1 style="color:rgb(69, 69, 69); ">3D Building (Simulation)</h1>
+    <select>
+      <option value="index.html">Test 01 - Load model</option>
+      <option value="ex1.html">Test 02 - Change Object Color</option>
+      <option value="ex2.html">Test 03 - Animate Object Color</option>
+      <option value="ex3.html" selected="true">Test 04 - Simulation Overlays</option>
+    </select>
+  </div>
+  <div style="display:flex; flex-direction:row;align-items:stretch">
+  <div>
+    <table id="simtable" style="width:800px; overflow-x:scroll">
+    </table>
+  </div>
+  <div id="graphWrapper" style="margin-left:12px;margin-right:12px;width:100%">
+    <canvas id="graph"></canvas>
+  </div>
+  </div>
+  <div>
+    <input id="trange" type="range" min="-15" max="20" value="10">
+    <div>Outside temp C:<span id="tvalue">0</span></div>
+  </div>
+  <div>
+    Example: 33 wh/m2 pr. Heat Degree Day (Base 20)
+  </div>
+  <div>Total consumptions:<span id="ttotal">0</span></div>
+  <script type="module" src="./ex4.js"></script>
+  <script>
+    document.querySelector("select").addEventListener("change", (e) => {
+      window.location.href = e.target.value;
+    });
+  </script>
+</body>
+
+</html>

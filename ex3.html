@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Building JavaScript</title>
+  <style type="text/css">
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+    #overlay {
+        position:absolute;
+        display:flex;
+        justify-content: end;
+        flex-direction:row;
+        width: 100%;
+    }
+    .text {
+        font-size: 25pt;
+        font-weight: bold;
+        color: rgba(255,255,255,0.7);
+        background: rgba(158, 156, 255, 0.7);
+        border: solid 4px rgba(180, 178, 253, 0.5);
+        border-radius: 8px 0px 0px 8px;
+        padding: 8px;
+    }
+    #tcw {
+        width: 600px;    
+    }
+    #acw {
+        width: 600px;    
+    }
+  </style>
+</head>
+
+<body>
+  <div style="display:flex;flex-direction: row;justify-content: space-between; padding:16px">
+    <h1 style="color:rgb(69, 69, 69); ">3D Building (Simple animation)</h1>
+    <select>
+      <option value="index.html">Test 01 - Load model</option>
+      <option value="ex1.html">Test 02 - Change Object Color</option>
+      <option value="ex2.html">Test 03 - Animate Object Color</option>
+      <option value="ex3.html" selected="true">Test 04 - Simulation Overlays</option>
+    </select>
+  </div>
+  <div id="overlay">
+    <div id="rp">
+    <div id="tcw" class="text">Total consumption:<span id="tc">0000000000</span></div>
+    <div id="acw" class="text">Avg. consumption:<span id="ac">000000</span></div>
+    </div>
+  </div>
+  <script type="module" src="./ex3.js"></script>
+  <script>
+    document.querySelector("select").addEventListener("change", (e) => {
+      window.location.href = e.target.value;
+    });
+  </script>
+</body>
+
+</html>
