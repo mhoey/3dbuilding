@@ -1,59 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Building JavaScript</title>
-  <style type="text/css">
-    body {
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      margin: 0;
-      overflow: hidden;
-    }
-
-    canvas {
-      display: block;
-    }
-    #overlay {
-        position:absolute;
-        right:10px;
-        bottom: 10px;
-        width: 400px;
-    }
-    .text {
-        font-size: 25pt;
-        font-weight: bold;
-        color: rgba(255,255,255,0.7);
-        background: rgba(158, 156, 255, 0.7);
-        border: solid 4px rgba(180, 178, 253, 0.5);
-        border-radius: 8px 0px 0px 8px;
-        padding: 8px;
-    }
-    #tcw {
-        width: 600px;    
-    }
-    #acw {
-        width: 600px;    
-    }
-  </style>
-</head>
-
-<body>
-  <div style="display:flex;flex-direction: row;justify-content: space-between; padding:16px">
-    <h1 style="color:rgb(69, 69, 69); ">3D Building (Simple animation)</h1>
-    <select>
-      <option value="index.html">Test 01 - Load model</option>
-      <option value="ex1.html">Test 02 - Change Object Color</option>
-      <option value="ex2.html">Test 03 - Animate Object Color</option>
-      <option value="ex3.html" selected="true">Test 04 - Simulation Overlays</option>
-    </select>
-  </div>
-  <div id="overlay">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 571 364" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
     <path d="M568.806,14.272L568.806,349.502C568.806,356.212 563.358,361.66 556.648,361.66L14.272,361.66C7.562,361.66 2.113,356.212 2.113,349.502L2.113,14.272C2.113,7.562 7.562,2.113 14.272,2.113L556.648,2.113C563.358,2.113 568.806,7.562 568.806,14.272Z" style="fill:#ebebeb;fill-opacity:0.62;stroke:#fff;stroke-width:4.23px;"/>
-    <text id="ousideTemp" x="304.601px" y="300.592px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:16px;fill:#1a1a1a;">0</text>
-    <text id="outsideTempLabel" x="181.101px" y="300.592px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:16px;fill:#1a1a1a;">Outside temp C°:</text>
+    <g id="outsideTemp" transform="matrix(16,0,0,16,313.499,300.592)">
+    </g>
+    <text x="304.601px" y="300.592px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:16px;fill:#1a1a1a;">0</text>
+    <g id="outsideTempLabel" transform="matrix(16,0,0,16,303.101,300.592)">
+    </g>
+    <text x="181.101px" y="300.592px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:16px;fill:#1a1a1a;">Outside temp C°:</text>
     <text id="consumpExplanation" x="180.609px" y="333.592px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:16px;fill:#1a1a1a;">Example: 33 wh/m2 pr. Heat Degree Day (Base 20)</text>
     <text id="totalConsumptionLabel" x="249.788px" y="43.543px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:16px;fill:#1a1a1a;">TOTAL CONSUMPTION:</text>
     <text id="avgConsumptionLabel" x="250.186px" y="145.071px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:16px;fill:#1a1a1a;">AVERAGE CONSUMPTION</text>
@@ -85,14 +39,3 @@
         <rect x="25.71" y="313.388" width="32.875" height="32.875" style="fill:#04213f;"/>
     </g>
 </svg>
-
-  </div>
-  <script type="module" src="./ex3.js"></script>
-  <script>
-    document.querySelector("select").addEventListener("change", (e) => {
-      window.location.href = e.target.value;
-    });
-  </script>
-</body>
-
-</html>
