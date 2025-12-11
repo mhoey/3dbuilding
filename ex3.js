@@ -58,7 +58,7 @@ function loadThreeJSScene() {
     // Load GLTFLoader from CDN
     const loader = new GLTFLoader();
     loader.load(
-        './public/BuildingSceneV4.glb',
+        './public/BuildingSceneV2.glb',
         function (gltf) {
             scene.add(gltf.scene);
             // Change color for all rooms
@@ -66,6 +66,8 @@ function loadThreeJSScene() {
                 const mesh = scene.getObjectByName(`Indicator${formatThreeDigits(indicatorIndex)}`);
                 mesh.material.color.setHSL(green/360,1,0.5)
             }
+            initRoomArray()
+            runRoomAnimation()
         },
         undefined,
         function (error) {
@@ -75,6 +77,58 @@ function loadThreeJSScene() {
 
 
 
+    const initRoomArray = () => {
+        for (let indicatorIndex = 1; indicatorIndex <= 80; indicatorIndex++) {
+            roomArray.push(
+                {
+                    index: indicatorIndex,
+                    meshRef: scene.getObjectByName(`Indicator${formatThreeDigits(indicatorIndex)}`),
+                    endColor: { h: red},
+                    startColor: { h: green},
+                    currentColor: { h: green},
+                    animating: false,
+                    animate: function() {
+                        this.animating = true;
+                        gsap.fromTo(this.currentColor, {h: this.startColor.h}, {
+                            h: this.endColor.h,
+                            duration:5,
+                            ease:"none",
+                            onUpdate: () => {
+                                this.meshRef.material.color.setHSL(
+                                    this.currentColor.h / 360, 1, 0.5
+                                );
+                            },
+                            onComplete: () => {
+                                console.log("Complete")
+                                this.animating = false;
+                                if (this.startColor.h == 0) {
+                                    this.startColor = { h: green };
+                                    this.endColor = { h: red };
+                                } else {
+                                    this.startColor = { h: green };
+                                    this.endColor = { h: red };
+                                }
+                            }})
+                        }
+                }
+            )
+        }
+    }
+
+
+    // const mesh = scene.getObjectByName(`Indicator${formatThreeDigits(indicatorIndex)}`);
+    // mesh.material.color.set(0xff0000); // Change color to red
+    const runRoomAnimation = () => {
+        setInterval( () => {
+            let indicatorIndex = Math.floor(Math.random() * 80) + 1
+            let room = roomArray[indicatorIndex-1]
+            while (room.animating) {
+                indicatorIndex = Math.floor(Math.random() * 80) + 1
+                room = roomArray[indicatorIndex-1]
+            }
+            room.animate()
+        }, 500)
+    }
 
     // Animation loop
     function animate() {

@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { floorPowerOfTwo } from 'three/src/math/MathUtils.js';
-import { gsap } from 'gsap';
 
 // Import GLTFLoader from CDN
 var scene = new THREE.Scene();
@@ -17,7 +15,7 @@ function loadThreeJSScene() {
         0.1,
         1000
     );
-    camera.position.set(70, 5, 0);
+    camera.position.set(70,5, 0);
 
     // Create renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -30,13 +28,12 @@ function loadThreeJSScene() {
     light.shadow.mapSize.width = 512; // default
     light.shadow.mapSize.height = 512;
     light.castShadow = true; // default false
-    light.decay = 0
-
+    light.decay=0
+    
     scene.add(light);
 
-    const light1 = new THREE.AmbientLight(0x404040, 1);
-    scene.add(light1);
-    scene.background = new THREE.Color(0x333333);
+    const light1 = new THREE.AmbientLight( 0x404040,1 );
+    scene.add( light1 );
 
     // Add OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -48,26 +45,12 @@ function loadThreeJSScene() {
     controls.target.set(0, 1, 0);
     controls.update();
 
-    const formatThreeDigits = (num) => {
-        return String(num).padStart(3, '0');
-    }
-    const roomArray = []
-    const red = 0
-    const green = 160
-
     // Load GLTFLoader from CDN
     const loader = new GLTFLoader();
     loader.load(
         './public/BuildingSceneV2.glb',
         function (gltf) {
             scene.add(gltf.scene);
-            // Change color for all rooms
-            for (let indicatorIndex = 1; indicatorIndex <= 80; indicatorIndex++) {
-                const mesh = scene.getObjectByName(`Indicator${formatThreeDigits(indicatorIndex)}`);
-                mesh.material.color.setHSL(green/360,1,0.5)
-            }
-            initRoomArray()
-            runRoomAnimation()
         },
         undefined,
         function (error) {
@@ -75,66 +58,28 @@ function loadThreeJSScene() {
         }
     );
 
+    let indicatorIndex = 0;
 
-
-    const initRoomArray = () => {
-        for (let indicatorIndex = 1; indicatorIndex <= 80; indicatorIndex++) {
-            roomArray.push(
-                {
-                    index: indicatorIndex,
-                    meshRef: scene.getObjectByName(`Indicator${formatThreeDigits(indicatorIndex)}`),
-                    endColor: { h: red},
-                    startColor: { h: green},
-                    currentColor: { h: green},
-                    animating: false,
-                    animate: function() {
-                        this.animating = true;
-                        gsap.fromTo(this.currentColor, {h: this.startColor.h}, {
-                            h: this.endColor.h,
-                            duration:5,
-                            ease:"none",
-                            onUpdate: () => {
-                                this.meshRef.material.color.setHSL(
-                                    this.currentColor.h / 360, 1, 0.5
-                                );
-                            },
-                            onComplete: () => {
-                                console.log("Complete")
-                                this.animating = false;
-                                if (this.startColor.h == 0) {
-                                    this.startColor = { h: green };
-                                    this.endColor = { h: red };
-                                } else {
-                                    this.startColor = { h: green };
-                                    this.endColor = { h: red };
-                                }
-                            }})
-                        }
-                }
-            )
-        }
+    const formatThreeDigits = (num) => {
+        return String(num).padStart(3, '0');
     }
 
-
-    // const mesh = scene.getObjectByName(`Indicator${formatThreeDigits(indicatorIndex)}`);
-    // mesh.material.color.set(0xff0000); // Change color to red
-    const runRoomAnimation = () => {
-        setInterval( () => {
-            let indicatorIndex = Math.floor(Math.random() * 80) + 1
-            let room = roomArray[indicatorIndex-1]
-            while (room.animating) {
-                indicatorIndex = Math.floor(Math.random() * 80) + 1
-                room = roomArray[indicatorIndex-1]
-            }
-            room.animate()
-        }, 500)
-    }
+    const intervalId = setInterval(() => {
+      const mesh = scene.getObjectByName(`Indicator${formatThreeDigits(indicatorIndex)}`);
+      if (mesh) {
+        mesh.material.color.set(0xff0000); // Change color to red
+      }
+      indicatorIndex++
+      if (indicatorIndex>80) {
+        clearInterval(intervalId);
+      }
+    }, 500);
 
     // Animation loop
     function animate() {
         requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
+    controls.update();
+    renderer.render(scene, camera);
     }
     animate();
 }

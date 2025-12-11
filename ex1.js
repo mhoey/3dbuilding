@@ -3,10 +3,10 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // Import GLTFLoader from CDN
-var scene = new THREE.Scene();
 
 function loadThreeJSScene() {
     // Create scene
+    const scene = new THREE.Scene();
 
     // Create camera
     const camera = new THREE.PerspectiveCamera(
@@ -23,17 +23,9 @@ function loadThreeJSScene() {
     document.body.appendChild(renderer.domElement);
 
     // Add light
-    const light = new THREE.SpotLight(0xffffff, 10);
+    const light = new THREE.DirectionalLight(0xffffff, 4);
     light.position.set(170, 180, 0);
-    light.shadow.mapSize.width = 512; // default
-    light.shadow.mapSize.height = 512;
-    light.castShadow = true; // default false
-    light.decay=0
-    
     scene.add(light);
-
-    const light1 = new THREE.AmbientLight( 0x404040,1 );
-    scene.add( light1 );
 
     // Add OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -57,23 +49,6 @@ function loadThreeJSScene() {
             console.error('An error happened while loading the model:', error);
         }
     );
-
-    let indicatorIndex = 0;
-
-    const formatThreeDigits = (num) => {
-        return String(num).padStart(3, '0');
-    }
-
-    const intervalId = setInterval(() => {
-      const mesh = scene.getObjectByName(`Indicator${formatThreeDigits(indicatorIndex)}`);
-      if (mesh) {
-        mesh.material.color.set(0xff0000); // Change color to red
-      }
-      indicatorIndex++
-      if (indicatorIndex>80) {
-        clearInterval(intervalId);
-      }
-    }, 500);
 
     // Animation loop
     function animate() {
