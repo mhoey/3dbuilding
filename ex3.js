@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { floorPowerOfTwo } from 'three/src/math/MathUtils.js';
 import { gsap } from 'gsap';
 
 // Import GLTFLoader from CDN

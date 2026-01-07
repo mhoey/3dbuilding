@@ -58,7 +58,7 @@ function loadThreeJSScene() {
     // Load GLTFLoader from CDN
     const loader = new GLTFLoader();
     loader.load(
-        './public/BuildingSceneV4.glb',
+        './BuildingSceneV4.glb',
         function (gltf) {
             scene.add(gltf.scene);
             // Change color for all rooms
