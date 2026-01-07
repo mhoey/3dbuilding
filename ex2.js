@@ -48,7 +48,7 @@ function loadThreeJSScene() {
     // Load GLTFLoader from CDN
     const loader = new GLTFLoader();
     loader.load(
-        './public/BuildingSceneV2.glb',
+        './BuildingSceneV2.glb',
         function (gltf) {
             scene.add(gltf.scene);
         },
