@@ -118,7 +118,7 @@ const calcDistribution = (degrees) => {
 document.getElementById("ttotal").innerText = calcTotal(10)
 
 
-document.getElementById("trange").value = 20
+document.getElementById("trange").value = 0
 
 document.getElementById("trange").addEventListener("input",
     (inputEvent) => {
