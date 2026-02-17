@@ -92,10 +92,10 @@ const parabolicValues = (total, samples) => {
 }
 
 // Init heat values
-let zeroValues = Array(rows * cols).fill(0)
-renderTable(zeroValues)
+let initialValues = calcDistribution(0)
+renderTable(initialValues)
 initGraph()
-renderGraph(zeroValues)
+renderGraph(initialValues)
 
 
 // Base average
@@ -114,11 +114,11 @@ const calcDistribution = (degrees) => {
 }
 
 
+document.getElementById("trange").value = 0
 
 document.getElementById("ttotal").innerText = calcTotal(10)
 
 
-document.getElementById("trange").value = 0
 
 document.getElementById("trange").addEventListener("input",
     (inputEvent) => {
