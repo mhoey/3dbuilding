@@ -91,11 +91,6 @@ const parabolicValues = (total, samples) => {
     return values.map(v => v + adjustment)
 }
 
-// Init heat values
-let initialValues = calcDistribution(0)
-renderTable(initialValues)
-initGraph()
-renderGraph(initialValues)
 
 
 // Base average
@@ -117,6 +112,11 @@ const calcDistribution = (degrees) => {
 document.getElementById("trange").value = 0
 
 document.getElementById("ttotal").innerText = calcTotal(10)
+// Init heat values
+let initialValues = calcDistribution(0)
+renderTable(initialValues)
+initGraph()
+renderGraph(initialValues)
 
 
 
